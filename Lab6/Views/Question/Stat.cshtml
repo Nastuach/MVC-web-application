@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "Статистика вопросов";
+}
+
+<h2>Статистика</h2>
+<p>Всего вопросов: @ViewData["Count"]</p>
+
+<h3>Уникальные тексты вопросов:</h3>
+<ul>
+    @foreach (var text in ViewData["Text"] as List<string>)
+    {
+        <li>@text</li>
+    }
+</ul>

@@ -1,0 +1,92 @@
+﻿@model List<Lab6.Models.Question>
+@{
+    ViewData["Title"] = "Тестирование";
+}
+
+<style>
+    .question-block {
+        margin-bottom: 2rem;
+        padding: 1.5rem;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        background: #fff;
+    }
+
+    .options-list {
+        margin: 1rem 0;
+        padding-left: 1.5rem;
+    }
+
+    .option-item {
+        margin: 0.5rem 0;
+        color: #6c757d;
+    }
+
+    .answer-input {
+        margin-top: 1rem;
+        width: 100%;
+        padding: 0.8rem;
+        border: 2px solid #4a90e2;
+        border-radius: 6px;
+        font-size: 1rem;
+    }
+
+    .warning-note {
+        color: #dc3545;
+        font-size: 0.9rem;
+        margin-top: 0.5rem;
+    }
+</style>
+
+<div class="category-container">
+    <div class="category-header">
+        <h1 class="category-title">@ViewData["Title"]</h1>
+        <div class="question-counter">Вопросов: @Model.Count</div>
+    </div>
+
+    <div class="category-table-wrapper">
+        <form asp-action="Test" method="post">
+            @foreach (var question in Model)
+            {
+                var correctAnswer = question.Answers?.FirstOrDefault() ?? "Нет ответа";
+                var splitBadAnswers = question.BadAnswers?
+                .SelectMany(a => a.Split(','))
+                .Select(a => a.Trim())
+                .Where(a => !string.IsNullOrEmpty(a))
+                .ToList() ?? new List<string>();
+
+                var wrongAnswers = splitBadAnswers
+                .OrderBy(a => Guid.NewGuid())
+                .Take(3)
+                .ToList();
+
+                var allOptions = wrongAnswers
+                .Append(correctAnswer)
+                .OrderBy(a => Guid.NewGuid())
+                .ToList();
+
+                <div class="question-block">
+                    <h4>@question.Text</h4>
+
+                    <div class="options-list">
+                        @foreach (var option in allOptions)
+                        {
+                            <div class="option-item">
+                                • @option
+                            </div>
+                        }
+                    </div>
+
+                    <input type="text"
+                           name="userAnswers[@question.Id]"
+                           class="answer-input"
+                           placeholder="Введите правильный ответ"
+                           required>
+
+                    <small class="text-muted">Категория: @question.Category?.Title</small>
+                </div>
+            }
+            <button type="submit" class="btn btn-primary w-100 mt-4">Завершить тест</button>
+        </form>
+    </div>
+</div>

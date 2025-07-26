@@ -1,0 +1,155 @@
+﻿@model Lab6.Models.Category
+<style>
+    .category-container {
+        max-width: 1200px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .category-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+        padding: 1rem 0;
+        border-bottom: 1px solid #eee;
+        width: 100%;
+        max-width: 800px;
+    }
+
+    .category-title {
+        font-size: 1.8rem;
+        font-weight: 500;
+        color: #2c3e50;
+    }
+
+    .category-table-wrapper {
+        width: 100%;
+        max-width: 800px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        overflow: hidden;
+    }
+
+    .table-header {
+        background: #f8f9fa;
+        color: #6c757d;
+        font-weight: 500;
+    }
+
+    .table-row:hover {
+        background-color: #f8f9fa;
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 0.8rem;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .btn-custom {
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.2s;
+        border: 1px solid #e0e0e0;
+        background: #f8f9fa;
+        color: #2c3e50;
+    }
+
+        .btn-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+            background: #fff;
+        }
+
+    .btn-edit {
+        border-color: #4a90e2;
+        color: #4a90e2;
+    }
+
+    .btn-details {
+        border-color: #6c757d;
+        color: #6c757d;
+    }
+
+    .btn-delete {
+        border-color: #dc3545;
+        color: #dc3545;
+    }
+
+    .bi {
+        font-size: 1.1rem;
+    }
+
+    .centered-table {
+        margin: 0 auto;
+        width: 100%;
+    }
+    .detail-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 1rem;
+        border-bottom: 1px solid #eee;
+    }
+
+    .detail-term {
+        font-weight: 500;
+        color: #6c757d;
+        flex: 0 0 30%;
+    }
+
+    .detail-description {
+        color: #2c3e50;
+        flex: 1;
+        padding-left: 1rem;
+    }
+
+    .category-actions {
+        display: flex;
+        gap: 1rem;
+        margin-top: 2rem;
+        padding: 1rem;
+        border-top: 1px solid #eee;
+    }
+</style>
+
+<div class="category-container">
+    <div class="category-header">
+        <h1 class="category-title">@Model.Title</h1>
+    </div>
+
+    <div class="category-table-wrapper">
+        <div class="detail-item">
+            <div class="detail-term">ID:</div>
+            <div class="detail-description">@Model.Id</div>
+        </div>
+        <div class="detail-item">
+            <div class="detail-term">Название:</div>
+            <div class="detail-description">@Model.Title</div>
+        </div>
+        <div class="detail-item">
+            <div class="detail-term">Описание:</div>
+            <div class="detail-description">@Model.Description</div>
+        </div>
+
+        <div class="category-actions">
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn-custom btn-edit">
+                <i class="bi bi-pencil-square"></i>
+                Редактировать
+            </a>
+            <a asp-action="All" class="btn-custom btn-details">
+                <i class="bi bi-arrow-left"></i>
+                Назад к списку
+            </a>
+        </div>
+    </div>
+</div>

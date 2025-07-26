@@ -1,0 +1,131 @@
+﻿@model Lab6.Models.Category
+
+@{
+    ViewData["Title"] = "Редактирование категории";
+}
+
+<style>
+    .edit-container {
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+    }
+
+    .edit-header {
+        border-bottom: 1px solid #eee;
+        padding-bottom: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .edit-title {
+        font-size: 1.8rem;
+        font-weight: 500;
+        color: #2c3e50;
+    }
+
+    .edit-card {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        padding: 2rem;
+    }
+
+    .form-label {
+        font-weight: 500;
+        color: #4a5568;
+        margin-bottom: 0.5rem;
+    }
+
+    .form-control-custom {
+        border: 1px solid #e0e0e0;
+        border-radius: 6px;
+        padding: 0.75rem;
+        transition: all 0.3s ease;
+    }
+
+        .form-control-custom:focus {
+            border-color: #4a90e2;
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+        }
+
+    .action-buttons {
+        display: flex;
+        gap: 1rem;
+        margin-top: 2rem;
+    }
+
+    .btn-save {
+        background: #4a90e2;
+        color: white;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+    }
+
+        .btn-save:hover {
+            background: #357abd;
+            transform: translateY(-1px);
+        }
+
+    .btn-cancel {
+        background: #f8f9fa;
+        color: #2c3e50;
+        border: 1px solid #e0e0e0;
+        padding: 0.75rem 1.5rem;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+    }
+
+        .btn-cancel:hover {
+            background: #fff;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+
+    .validation-summary {
+        color: #dc3545;
+        margin-bottom: 1.5rem;
+    }
+</style>
+
+<div class="edit-container">
+    <div class="edit-header">
+        <h1 class="edit-title">
+            <i class="bi bi-pencil-square"></i> Редактирование: @Model.Title
+        </h1>
+    </div>
+
+    <div class="edit-card">
+        <form asp-action="Edit">
+            <input type="hidden" asp-for="Id" />
+
+            <div class="form-group mb-4">
+                <label asp-for="Title" class="form-label">Название категории</label>
+                <input asp-for="Title" class="form-control-custom" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-4">
+                <label asp-for="Description" class="form-label">Описание</label>
+                <textarea asp-for="Description" class="form-control-custom" rows="4"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="action-buttons">
+                <button type="submit" class="btn-save">
+                    <i class="bi bi-save"></i> Сохранить
+                </button>
+                <a asp-action="All" class="btn-cancel">
+                    <i class="bi bi-x-circle"></i> Отмена
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

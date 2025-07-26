@@ -1,0 +1,141 @@
+﻿@model Lab6.Models.Question
+@{
+    Layout = "_Layout";
+}
+
+<style>
+    .category-container {
+        max-width: 1200px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .category-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+        padding: 1rem 0;
+        border-bottom: 1px solid #eee;
+        width: 100%;
+        max-width: 800px;
+    }
+
+    .category-title {
+        font-size: 1.8rem;
+        font-weight: 500;
+        color: #2c3e50;
+    }
+
+    .btn-custom {
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.2s;
+        border: 1px solid #e0e0e0;
+        background: #f8f9fa;
+        color: #2c3e50;
+        text-decoration: none;
+    }
+
+        .btn-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+            background: #fff;
+        }
+
+    .category-table-wrapper {
+        width: 100%;
+        max-width: 800px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        overflow: hidden;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #e0e0e0;
+        border-radius: 6px;
+        font-size: 1rem;
+    }
+
+    .text-danger {
+        color: #dc3545;
+        font-size: 0.875rem;
+        margin-top: 0.5rem;
+        display: block;
+    }
+
+    .btn-primary {
+        background-color: #4a90e2;
+        color: white;
+        border: none;
+        padding: 0.6rem 1.5rem;
+        font-size: 0.9rem;
+    }
+</style>
+
+<div class="category-container">
+    <div class="category-header">
+        <h1 class="category-title">Редактировать вопрос</h1>
+    </div>
+
+    <div class="category-table-wrapper">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+
+            <div class="form-group">
+                <label class="control-label">Текст вопроса</label>
+                <input asp-for="Text" class="form-control" />
+                <span asp-validation-for="Text" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Комментарий</label>
+                <input asp-for="Comment" class="form-control" />
+                <span asp-validation-for="Comment" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Категория</label>
+                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Правильные ответы</label>
+                <input name="Answers" class="form-control"
+                       value="@(Model.Answers != null ? string.Join(", ", Model.Answers) : "")" />
+                <span asp-validation-for="Answers" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Неправильные ответы</label>
+                <input name="BadAnswers" class="form-control"
+                       value="@(Model.BadAnswers != null ? string.Join(", ", Model.BadAnswers) : "")" />
+                <span asp-validation-for="BadAnswers" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="category-header" style="margin-top: 2rem; border: none;">
+        <a asp-action="All" class="btn btn-custom">Вернуться к списку</a>
+    </div>
+</div>

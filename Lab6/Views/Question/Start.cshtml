@@ -1,0 +1,112 @@
+﻿@{
+    ViewData["Title"] = "Настройки тестирования";
+}
+
+<style>
+    .category-container {
+        max-width: 1200px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center
+    }
+
+    .category-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+        padding: 1rem 0;
+        border-bottom: 1px solid #eee;
+        width: 100%;
+        max-width: 800px
+    }
+
+    .category-title {
+        font-size: 1.8rem;
+        font-weight: 500;
+        color: #2c3e50
+    }
+
+    .btn-custom {
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.2s;
+        border: 1px solid #e0e0e0;
+        background: #f8f9fa;
+        color: #2c3e50;
+        text-decoration: none
+    }
+
+        .btn-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+            background: #fff
+        }
+
+    .category-table-wrapper {
+        width: 100%;
+        max-width: 800px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        overflow: hidden;
+        padding: 2rem
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem
+    }
+
+    .form-control {
+        border-radius: 6px;
+        padding: 0.75rem 1rem;
+        border: 1px solid #e0e0e0;
+        transition: border-color 0.2s
+    }
+
+        .form-control:focus {
+            border-color: #4a90e2;
+            box-shadow: none
+        }
+
+    .btn-primary {
+        background: #4a90e2;
+        border: none;
+        padding: 0.75rem 2rem;
+        font-weight: 500
+    }
+
+        .btn-primary:hover {
+            background: #357abd
+        }
+</style>
+
+<div class="category-container">
+    <div class="category-header">
+        <h1 class="category-title">@ViewData["Title"]</h1>
+    </div>
+
+    <div class="category-table-wrapper">
+        <form asp-controller="Question" asp-action="Test" method="get">
+            <div class="form-group">
+                <label>Категория:</label>
+                <select name="categoryId" class="form-control" asp-items="ViewBag.Categories">
+                    <option value="0">Все категории</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Количество вопросов (0 - все):</label>
+                <input type="number" name="n" value="0" min="0" class="form-control">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Начать тест</button>
+        </form>
+    </div>
+</div>

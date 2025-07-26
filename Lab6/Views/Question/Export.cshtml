@@ -1,0 +1,71 @@
+﻿@{
+    ViewData["Title"] = "Экспорт данных";
+}
+
+<style>
+    .export-container {
+        max-width: 600px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-control {
+        border-radius: 6px;
+        padding: 0.75rem 1rem;
+        border: 1px solid #e0e0e0;
+    }
+
+    .btn-export {
+        background: #28a745;
+        color: white;
+        padding: 0.75rem 2rem;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+        .btn-export:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+</style>
+
+<div class="export-container">
+    <h2 class="mb-4">Экспорт вопросов</h2>
+
+    <form asp-action="Export" method="get">
+        <div class="form-group">
+            <label>Количество вопросов (0 - все):</label>
+            <input type="number" name="n" min="0"
+                   class="form-control" value="0">
+        </div>
+
+        <div class="form-group">
+            <label>Сортировка:</label>
+            <select name="sort" class="form-control">
+                <option value="">По умолчанию (ID)</option>
+                <option value="text">По тексту вопроса</option>
+                <option value="comment">По комментарию</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-export">
+            Экспортировать в JSON
+        </button>
+    </form>
+
+    <div class="mt-4">
+        <a asp-controller="Home" asp-action="Index"
+           class="text-decoration-none">
+            ← Вернуться на главную
+        </a>
+    </div>
+</div>

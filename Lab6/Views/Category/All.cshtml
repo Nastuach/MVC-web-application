@@ -1,0 +1,177 @@
+﻿@model IEnumerable<Lab6.Models.Category>
+
+@{
+    ViewData["Title"] = "Категории";
+}
+
+<style>
+    .category-container {
+        max-width: 1200px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .category-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+        padding: 1rem 0;
+        border-bottom: 1px solid #eee;
+        width: 100%;
+        max-width: 800px;
+    }
+
+    .category-title {
+        font-size: 1.8rem;
+        font-weight: 500;
+        color: #2c3e50;
+    }
+
+    .category-table-wrapper {
+        width: 100%;
+        max-width: 800px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        overflow: hidden;
+    }
+
+    .table-header {
+        background: #f8f9fa;
+        color: #6c757d;
+        font-weight: 500;
+    }
+
+    .table-row:hover {
+        background-color: #f8f9fa;
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 0.8rem;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .btn-custom {
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.2s;
+        border: 1px solid #e0e0e0;
+        background: #f8f9fa;
+        color: #2c3e50;
+    }
+
+        .btn-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+            background: #fff;
+        }
+
+    .btn-edit {
+        border-color: #4a90e2;
+        color: #4a90e2;
+    }
+
+    .btn-details {
+        border-color: #6c757d;
+        color: #6c757d;
+    }
+
+    .btn-delete {
+        border-color: #dc3545;
+        color: #dc3545;
+    }
+
+    .btn-home {
+        border-color: #28a745;
+        color: #28a745;
+    }
+
+    .bi {
+        font-size: 1.1rem;
+    }
+
+    .centered-table {
+        margin: 0 auto;
+        width: 100%;
+    }
+
+    .home-link {
+        margin-top: 2rem;
+        display: flex;
+        justify-content: center;
+    }
+</style>
+
+<div class="category-container">
+    <div class="category-header">
+        <h1 class="category-title">Управление категориями</h1>
+        <div>
+            <a asp-action="Add" class="btn btn-success btn-custom">
+                <i class="bi bi-plus-circle"></i> Новая категория
+            </a>
+        </div>
+    </div>
+
+    <div class="category-table-wrapper">
+        <table class="table table-hover mb-0 centered-table">
+            <thead class="table-header">
+                <tr>
+                    <th class="text-center">ID</th>
+                    <th class="text-center">Название</th>
+                    <th class="text-center">Описание</th>
+                    <th class="text-center" style="width: 320px;">Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="table-row">
+                        <td class="text-center">@item.Id</td>
+                        <td class="text-center">@item.Title</td>
+                        <td class="text-center">@(item.Description ?? "—")</td>
+                        <td>
+                            <div class="action-buttons">
+                                <a asp-action="Edit" asp-route-id="@item.Id"
+                                   class="btn btn-custom btn-edit"
+                                   title="Редактировать">
+                                    <i class="bi bi-pencil"></i>
+                                    <span>Изменить</span>
+                                </a>
+
+                                <a asp-action="Details" asp-route-id="@item.Id"
+                                   class="btn btn-custom btn-details"
+                                   title="Подробности">
+                                    <i class="bi bi-info-circle"></i>
+                                    <span>Подробно</span>
+                                </a>
+
+                                <a asp-action="Remove" asp-route-id="@item.Id"
+                                   class="btn btn-custom btn-delete"
+                                   title="Удалить">
+                                    <i class="bi bi-trash"></i>
+                                    <span>Удалить</span>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="home-link">
+        <a asp-controller="Home" asp-action="Index" class="btn btn-custom btn-home">
+            <i class="bi bi-arrow-left"></i> Вернуться на главную
+        </a>
+    </div>
+</div>

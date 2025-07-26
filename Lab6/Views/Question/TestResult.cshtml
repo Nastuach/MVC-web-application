@@ -1,0 +1,60 @@
+﻿@model Lab6.Controllers.TestResultsViewModel
+@{
+    ViewData["Title"] = "Результаты тестирования";
+}
+
+<div class="result-container">
+    <h2>Результаты теста</h2>
+
+    <div class="stats">
+        <div class="stat-item correct">
+            <span>Правильных ответов:</span>
+            <strong>@Model.CorrectAnswers</strong>
+        </div>
+        <div class="stat-item incorrect">
+            <span>Неправильных ответов:</span>
+            <strong>@(Model.TotalQuestions - Model.CorrectAnswers)</strong>
+        </div>
+    </div>
+
+    <div class="button-group">
+        <a asp-controller="Home" asp-action="Index" class="btn btn-primary">На главную</a>
+    </div>
+</div>
+
+<style>
+    .result-container {
+        max-width: 600px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .stats {
+        margin: 2rem 0;
+    }
+
+    .stat-item {
+        padding: 1rem;
+        margin: 1rem 0;
+        border-radius: 4px;
+    }
+
+    .correct {
+        background: #e8f5e9;
+        color: #2e7d32;
+    }
+
+    .incorrect {
+        background: #ffebee;
+        color: #c62828;
+    }
+
+    .button-group {
+        display: flex;
+        gap: 1rem;
+        margin-top: 2rem;
+    }
+</style>

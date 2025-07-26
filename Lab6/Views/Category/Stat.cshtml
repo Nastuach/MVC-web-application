@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Статистика категорий";
+}
+
+<h2>Статистика</h2>
+<p>Всего категорий: @ViewData["Count"]</p>
+
+<h3>Уникальные названия:</h3>
+<ul>
+    @foreach (var title in ViewData["Title"] as List<string>)
+    {
+        <li>@title</li>
+    }
+</ul>
+
+<h3>Уникальные описания:</h3>
+<ul>
+    @foreach (var desc in ViewData["Description"] as List<string>)
+    {
+        <li>@desc</li>
+    }
+</ul>
